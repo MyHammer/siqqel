@@ -1,0 +1,4 @@
+* create your config.inc.php from config.sample.php
+* call sample.php from the server
+* copy sample.php to your myQueries.php
+
