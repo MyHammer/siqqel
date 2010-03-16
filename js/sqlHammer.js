@@ -19,7 +19,7 @@ sqlHammer = {
 
 				$.each(this, function(j) {
 					var type = types[j] + '';
-					var typeSans = type.replace(/[0-9]/g, '').replace(/^MYSQL_/, '');
+					var typeSans = type.replace(/[0-9]/g, '').replace(/^MYSQLI_/, '');
 
 					var content = this + '';
 					if(this.toString() == '[object Window]') content = 'NULL';

@@ -1,4 +1,28 @@
+sqlHammer is an WebTool that creates simple AJAX Calls from your SQL-Queries. You simply put an sql-SQL into the "sql" Attribute of a table abnd it will be execute on next load.
+When you hover your mouse over an table, you will see an reload button.
+
+To see it in action do the following:
+
 * create your config.inc.php from config.sample.php
 * call sample.php from the server
-* copy sample.php to your myQueries.php
+* copy sample.php and create your own queries.
 
+You may also pass parameters form the URL to your sql-Query, by creating an "hashParam".
+
+You do this like this: SELECT #myParam;
+then put this param into the URL like this: http://localhost/myQuery.php#myParam:1
+
+Your param will be escaped but not quoted in any way, so this example is prone to SQL injections.
+
+To prevent raw SQL queries from floating over HTTP you may plug in your own SQL-encryption. Until then you should not run this tool on an unsecured webserver and not give access to someone you wouldn't give your mySQL password.
+
+Events:
+
+when loaded, each table, row and cell send and "loaded" event, so you can easly Manipulate everything for yopur purpose
+$('td.userId').live('loaded', function(userId) {
+	// do something useful.
+});
+
+Every cell gets two css classes: the name of the column and the type (eg: userId TYPE_LONG) so you can format it using css and manipulate it via jQuery
+
+every row gets a class "row" and a class "row" + rowNumber so $('#myQuery tr.row1') will match the 1 row of your resultset.
