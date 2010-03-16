@@ -1,0 +1,66 @@
+table {
+	border: 2px solid grey;
+	background-color: white;
+}
+
+table.error {
+	background-color: #fcc;
+	font-weight: bold;
+}
+
+tr:nth-child(even) {
+	background-color: #eee;
+}
+
+table td, table th {
+	padding: 2px 8px;
+	margin: 0;
+	border: none;
+}
+
+body {
+	font-family: Verdana, Geneva;
+	font-size: 11px;
+}
+
+td.TYPE_INT, td.TYPE_TINY, td.TYPE_LONG, td.TYPE_SHORT {
+	text-align: right;
+	font-family: "Dejavu Sans Mono", "Courier", "Courier New";
+}
+
+table:hover a.reload {
+	display: block;
+}
+
+table.loading a.reload {
+	display: block;
+	opacity: 1;
+	background-image: url("../i/remembermilk_orange.gif");
+	background-position: 0 0;
+	background-color: #eee;
+}
+
+a.reload {
+	margin-top: -22px;
+	margin-left: -15px;
+	background-image: url("../i/reload.png");
+	background-position: 0 -2px;
+	width: 20px;
+	height: 20px;
+	border: 1px solid grey;
+	-moz-border-radius: 3px;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	display: none;
+	position: absolute;
+	opacity: 0.5;
+	text-indent: -10000px;
+}
+
+a.reload:hover {
+	opacity: 0.9;
+}
+
+a.reload:active {
+	opacity: 1;
+}
