@@ -32,6 +32,10 @@ class sqlHammerLib {
 		<script type="text/javascript" src="js/sqlHammer.js"></script>
 		<link rel="stylesheet" href="css/style.css">
 ';
+		/*
+		<script type="text/javascript" src="flot/jquery.flot.js"></script>
+		<script type="text/javascript" src="js/graph.js"></script>
+		*/
 	}
 
 	static function encryptSqlQuery($sqlQuery) {

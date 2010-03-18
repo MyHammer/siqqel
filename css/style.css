@@ -1,6 +1,7 @@
 table {
 	border: 2px solid grey;
 	background-color: white;
+	border-spacing: 0;
 }
 
 table.error {
@@ -16,6 +17,16 @@ table td, table th {
 	padding: 2px 8px;
 	margin: 0;
 	border: none;
+	border-right: 1px solid lightgrey;
+}
+
+table tr.quickGraph {
+	background-image: url(../i/barpart.png);
+	background-repeat: no-repeat;
+}
+
+table tr.quickGraphMax {
+	background-image: url(../i/barpart.png);
 }
 
 body {
@@ -23,7 +34,7 @@ body {
 	font-size: 11px;
 }
 
-td.TYPE_INT, td.TYPE_TINY, td.TYPE_LONG, td.TYPE_SHORT {
+td.TYPE_INT, td.TYPE_TINY, td.TYPE_LONG, td.TYPE_SHORT, td.TYPE_LONGLONG, td.TYPE_NEWDECIMAL {
 	text-align: right;
 	font-family: "Dejavu Sans Mono", "Courier", "Courier New";
 }

@@ -66,8 +66,11 @@ if($iErrNo = mysqli_connect_errno()) {
 	die(jsonError($iErrNo, mysqli_connect_error()));
 }
 
-
 if($oMysqlResult = $db->query($sqlQuery)) {
+	if($iErrNo = mysqli_errno($db)) {
+		die(jsonError($iErrNo, mysqli_error($db)));
+	}
+
 	$oResult = (object)null;
 	$oResult->HEADER = array();
 	$oResult->TYPES = array();
@@ -84,4 +87,8 @@ if($oMysqlResult = $db->query($sqlQuery)) {
 	}
 
 	echo json_encode(array('RESULT' => $oResult));
+} else {
+	if($iErrNo = mysqli_errno($db)) {
+		die(jsonError($iErrNo, mysqli_error($db)));
+	}	
 }

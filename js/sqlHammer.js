@@ -1,5 +1,9 @@
 sqlHammer = {
 	executeQuery: function($this, sqlQuery, hashParams) {
+		var graph = $this.attr('graph');
+
+		var graphValues = [];
+		var graphMax = 0;
 
 		$this.addClass('loading');
 
@@ -36,10 +40,36 @@ sqlHammer = {
 					row[header[j]] = content;
 				});
 
-				tr.trigger('loaded', row);
+				if(graph) {
+					var value = parseFloat('' + row[graph]);
+					if(value < 0) value = 0;
+					graphMax = Math.max(graphMax, value);
+					graphValues.push(value);
+				}
+
+				tr.trigger('rowLoaded', row);
 			});
 
-			$this.trigger('loaded').removeClass('loading');
+			if(graphMax > 0) {
+				var i = -1;
+				$this.find('tr').each(function() {
+					if(i == -1) {
+						i++;
+						return;
+					}
+
+					if(graphValues[i] != graphMax) {
+						$(this).addClass('quickGraph').css('-moz-background-size', Math.round(graphValues[i] / graphMax * 100) + '% 100%');
+					} else {
+						$(this).addClass('quickGraphMax');
+					}
+
+
+					i++;
+				});
+			}
+
+			$this.trigger('tableLoaded').removeClass('loading');
 
 			var reloadLink = $('<a>').addClass('reload').text('Reload').click(function() {
 				sqlHammer.executeQuery($this, sqlQuery, hashParams);
@@ -91,8 +121,20 @@ function toDate(timestamp) {
 
 function summarizeText($this) {
 	if($this.html().length < 200) return;
+}
 
-	
+$.fn.columnValues = function(columnName, callback) {
+	var values = [];
+	var i = 0;
+	this.find('tr>td.' + columnName).each(function() {
+		if(!callback) {
+			values.push([i++, $(this).text()]);
+		} else {
+			values.push([i++, callback($(this).text())]);
+		}
+	});
+
+	return values;
 }
 
 $('td.timestamp, td.timestampExact').live('loaded', function(event, timestamp) {

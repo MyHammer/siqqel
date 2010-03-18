@@ -18,11 +18,21 @@ To prevent raw SQL queries from floating over HTTP you may plug in your own SQL-
 
 Events:
 
-when loaded, each table, row and cell send and "loaded" event, so you can easly Manipulate everything for yopur purpose
+when loaded, each table, row and cell send and loaded event, so you can easly Manipulate everything for yopur purpose
 $('td.userId').live('loaded', function(userId) {
 	// do something useful.
 });
 
+The events are:
+"loaded" for a cell
+"rowLoaded" for a row
+"tableLoaded" for the whole table.
+
 Every cell gets two css classes: the name of the column and the type (eg: userId TYPE_LONG) so you can format it using css and manipulate it via jQuery
 
 every row gets a class "row" and a class "row" + rowNumber so $('#myQuery tr.row1') will match the 1 row of your resultset.
+
+Simple bargraphs:
+You can put an simple bargraph into the background of an table by adding an "graph" attribute to your table. The "graph" attribute should contain the name of the column you want to the grpah for eg.:
+
+<table sql="SELECT contibuterName, COUNT(*) AS countOfCommits FROM commits GROUP BY(contributorName)" graph="countOfCommits"></table>
