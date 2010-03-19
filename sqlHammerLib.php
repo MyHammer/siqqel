@@ -29,6 +29,7 @@ class sqlHammerLib {
 		<script type="text/javascript" src="js/json.js"></script>
 		<script type="text/javascript" src="js/dbslayer.js"></script>
 		<script type="text/javascript" src="js/hashParams.js"></script>
+		<script type="text/javascript" src="js/variableInputPanel.js"></script>
 		<script type="text/javascript" src="js/sqlHammer.js"></script>
 		<link rel="stylesheet" href="css/style.css">
 ';

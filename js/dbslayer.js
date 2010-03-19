@@ -8,7 +8,7 @@ dbSlayer = {
 
 		$.each(sqlQuery.requiredHashParams, function() {
 			if(typeof(hashParams[this]) == 'undefined') {
-				errorCallback('The hashParam #' + this + ' could not be found in the URL please provide it. (eg.' + document.location.href.replace(/#.*/, '') + '#firstParam:firstValue,secondParam:secondValue)', 0, '');
+				errorCallback('Please enter a value for #' + this, 0, '');
 				missingHashParameters = true;
 			}
 

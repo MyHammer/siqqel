@@ -90,13 +90,32 @@ sqlHammer = {
 	}
 }
 
-$().ready(function() {
+function initTables() {
+	var requiredHashParams = {};
+
 	$('table[sql]').each(function() {
 		var $this = $(this);
+		var sqlQuery = eval('(' + $this.attr('sql') +')');
+
+		$.each(sqlQuery.requiredHashParams, function() {
+			requiredHashParams[this] = true;
+		});
+
 		$this.html('<tr><td>loading</td></tr>');
-		sqlHammer.executeQuery($this, eval('(' + $this.attr('sql') +')'), hashParams);
+		sqlHammer.executeQuery($this, sqlQuery, hashParams);
 	});
 
+	return requiredHashParams;
+}
+
+$().ready(function() {
+
+	// load up tables with sql statements
+	var requiredHashParams = initTables();
+	var inputPanel = new VariableInputPanel(requiredHashParams);
+
+	// add current hashparam to urls with tailing #
+	// should be converted to an event instead
 	$('a[href$=#]').each(function() {
 		var $this = $(this);
 

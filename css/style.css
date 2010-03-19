@@ -75,3 +75,24 @@ a.reload:hover {
 a.reload:active {
 	opacity: 1;
 }
+
+div.variableInput {
+	width: 200px;
+	border: 2px solid grey;
+	background-color: white;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+div.variableInput p {
+	margin: 0;
+	padding: 0;
+}
+
+div.variableInput label {
+	display: block;
+}
+
+div.variableInput input {
+	width: 190px;
+}

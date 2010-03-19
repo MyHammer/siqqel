@@ -7,7 +7,7 @@ hashParams = {
 			var r = this.match(/([a-zA-Z0-9_]+):([a-zA-Z0-9_%]*)/);
 			params[r[1]] = r[2];
 		});
-	},
+	}
 };
 
 hashParams.init(document.location.hash);
