@@ -1,7 +1,10 @@
 function VariableInputPanel(requiredParams) {
+	if(requiredParams.length == 0) return;
+
 	var div = $('<div>').addClass('variableInput');
 	var inputs = {};
 	var allHashParamsSet = true;
+	var i = 0;
 
 	function updateHash() {
 		var hash = '';
@@ -16,7 +19,7 @@ function VariableInputPanel(requiredParams) {
 	}
 
 	$.each(requiredParams, function(paramName, value) {
-		//console.log(paramName);
+		i++;
 
 		var fieldId = 'variableInput' + paramName;
 		var input = $('<input>').attr('id', fieldId).attr('type', 'text');
@@ -39,6 +42,8 @@ function VariableInputPanel(requiredParams) {
 			);
 		div.append(p);
 	});
+
+	if(i == 0) return;
 
 	if(allHashParamsSet) {
 		div.addClass('minimized');
