@@ -114,13 +114,14 @@ $().ready(function() {
 	var requiredHashParams = initTables();
 	var inputPanel = new VariableInputPanel(requiredHashParams);
 
-	// add current hashparam to urls with tailing #
-	// should be converted to an event instead
-	$('a[href$=#]').each(function() {
+	// add current hashparam to urls with trailing #
+
+	$('a[href$=#]').live('click', function() {
 		var $this = $(this);
 
-		$this.attr('href', $this.attr('href').replace(/#/, document.location.hash));
+		document.location.href = $this.attr('href').replace(/#/, document.location.hash);
 
+		return false;
 	});
 });
 
