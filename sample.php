@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Contract relevant data</title>
+	<title>Sample</title>
 	<?php require_once('sqlHammer.php'); ?>
 </head>
 <body>

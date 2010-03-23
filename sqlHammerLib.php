@@ -7,7 +7,6 @@
  * To change this template use File | Settings | File Templates.
  */
 
-require_once('core/v3/engine.php');
 
 class sqlHammerLib {
 	const encrpytionKey = 'edrdgtjhhjnzhbtzjimhnzgg';
@@ -15,7 +14,7 @@ class sqlHammerLib {
 	static function buildSqlQuery($encryptedQuery) {
 		$oQuery = json_decode($encryptedQuery);
 
-		$sqlQuery = cEncryption::decrypt(base64_decode($oQuery->SQL));
+		$sqlQuery = base64_decode($oQuery->SQL);
 
 		foreach($oQuery->hashParams as $name => $value) {
 			$sqlQuery = preg_replace('/#' . $name . '/', mysql_escape_string($value), $sqlQuery);
@@ -40,8 +39,7 @@ class sqlHammerLib {
 	}
 
 	static function encryptSqlQuery($sqlQuery) {
-		$encryptedQuery = base64_encode(cEncryption::encrypt($sqlQuery));
-
+		$encryptedQuery = base64_encode($sqlQuery);
 		$hashParams = array();
 		if(preg_match_all('/#([a-zA-Z0-9_]+)/', $sqlQuery, $matches, PREG_SET_ORDER)) {
 			foreach($matches as $match) {
