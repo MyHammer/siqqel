@@ -1,4 +1,21 @@
 sqlHammer = {
+	encryptQuery: function(sqlQuery) {
+		var sqlObject = {
+			'sqlQuery': sqlQuery
+		};
+
+		var requiredHashParams = [];
+
+		sqlQuery.replace(/#([a-zA-Z0-9_]+)/g, function(m, param) {
+			requiredHashParams.push(param);
+			return m;
+		});
+
+		sqlObject.requiredHashParams = requiredHashParams;
+
+		return sqlObject;
+	},
+	
 	executeQuery: function($this, sqlQuery, hashParams) {
 		var graph = $this.attr('graph');
 
@@ -83,10 +100,6 @@ sqlHammer = {
 
 	displayError: function($this, errorText) {
 		$this.empty().addClass('error').append($('<tr>').append($('<td>').text(errorText)));
-	},
-
-	encryptQuery: function(sqlQuery) {
-		return sqlQuery;
 	}
 }
 
@@ -95,7 +108,11 @@ function initTables() {
 
 	$('table[sql]').each(function() {
 		var $this = $(this);
-		var sqlQuery = eval('(' + $this.attr('sql') +')');
+		if(sqlHammerEncodingBackend == 'php') {
+			var sqlQuery = eval('(' + $this.attr('sql') +')');
+		} else {
+			var sqlQuery = sqlHammer.encryptQuery($this.attr('sql'));
+		}
 
 		$.each(sqlQuery.requiredHashParams, function() {
 			requiredHashParams[this] = true;

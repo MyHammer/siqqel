@@ -9,12 +9,22 @@
 
 
 class sqlHammerLib {
-	const encrpytionKey = 'edrdgtjhhjnzhbtzjimhnzgg';
+    static $javaScriptFiles = array(
+        'js/jquery-1.4.2-min.js',
+        'js/json.js',
+        'js/dbslayer.js',
+        'js/hashParams.js',
+        'js/variableInputPanel.js',
+        'js/sqlHammerLib.js'
+    );
+    static $cssFiles = array(
+        'css/style.css'
+    );
 
 	static function buildSqlQuery($encryptedQuery) {
 		$oQuery = json_decode($encryptedQuery);
 
-		$sqlQuery = base64_decode($oQuery->SQL);
+		$sqlQuery = $oQuery->SQL;
 
 		foreach($oQuery->hashParams as $name => $value) {
 			$sqlQuery = preg_replace('/#' . $name . '/', mysql_escape_string($value), $sqlQuery);
@@ -23,23 +33,37 @@ class sqlHammerLib {
 		return $sqlQuery;
 	}
 
+    static function jsConfig() {
+        $config = (object)null;
+
+        $config->cssFiles = self::$cssFiles;
+        $config->javaScriptFiles = self::$javaScriptFiles;
+        $config->baseUrl = 'http://' . $_SERVER['HTTP_HOST'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['REQUEST_URI']) .'/';
+
+        return $config;
+    }
+
 	static function htmlHeaders() {
-		return '		<script type="text/javascript" src="js/jquery-1.4.2-min.js"></script>
-		<script type="text/javascript" src="js/json.js"></script>
-		<script type="text/javascript" src="js/dbslayer.js"></script>
-		<script type="text/javascript" src="js/hashParams.js"></script>
-		<script type="text/javascript" src="js/variableInputPanel.js"></script>
-		<script type="text/javascript" src="js/sqlHammer.js"></script>
-		<link rel="stylesheet" href="css/style.css">
+        $html = '';
+
+        foreach(self::$javaScriptFiles as $javaScriptFile) {
+            $html .= '<script type="text/javascript" src="' . $javaScriptFile . '"></script>';
+        }
+
+        foreach(self::$cssFiles as $cssFile) {
+           $html .= '<link rel="stylesheet" href="' . $cssFile . '">';
+        }
+
+		$html .= '<script>
+sqlHammerEncodingBackend = \'php\';
+		</script>
 ';
-		/*
-		<script type="text/javascript" src="flot/jquery.flot.js"></script>
-		<script type="text/javascript" src="js/graph.js"></script>
-		*/
+
+        return $html;
 	}
 
 	static function encryptSqlQuery($sqlQuery) {
-		$encryptedQuery = base64_encode($sqlQuery);
+		$encryptedQuery = $sqlQuery;
 		$hashParams = array();
 		if(preg_match_all('/#([a-zA-Z0-9_]+)/', $sqlQuery, $matches, PREG_SET_ORDER)) {
 			foreach($matches as $match) {

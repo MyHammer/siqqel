@@ -10,18 +10,13 @@
 require_once('sqlHammerLib.php');
 
 
-$sQueryString = $_SERVER['QUERY_STRING'];
+function jsonp_encode($data) {
+    return $_GET['callback'] . '(' . json_encode($data) . ');';
+}
+
+$sQueryString = $_GET['sql'];
 
 $sqlQuery = sqlHammerLib::buildSqlQuery(urldecode($sQueryString));
-
-/*
-$sDbSlayerUrl = 'http://localhost:9090/db?';
-$rFilePointer = fopen($sDbSlayerUrl . urlencode(json_encode(array('SQL' => $sqlQuery))), 'r');
-
-#header('Content-Type: application/javascript');
-
-fpassthru($rFilePointer);
-die();*/
 
 function getFieldTypeName($iFieldType) {
 	if($iFieldType == MYSQLI_TYPE_DECIMAL) return 'MYSQLI_TYPE_DECIMAL';
@@ -55,7 +50,7 @@ function getFieldTypeName($iFieldType) {
 }
 
 function jsonError($iErrNo, $sError, $sServer = '') {
-	return json_encode(array('MYSQL_ERROR' => $sError, 'MYSQL_ERRNO' => $iErrNo, 'SERVER' => $sServer));
+	return jsonp_encode(array('MYSQL_ERROR' => $sError, 'MYSQL_ERRNO' => $iErrNo, 'SERVER' => $sServer));
 }
 
 require_once('config.inc.php');
@@ -86,7 +81,7 @@ if($oMysqlResult = $db->query($sqlQuery)) {
 		$oResult->ROWS[] = $aRow;
 	}
 
-	echo json_encode(array('RESULT' => $oResult));
+	echo jsonp_encode(array('RESULT' => $oResult));
 } else {
 	if($iErrNo = mysqli_errno($db)) {
 		die(jsonError($iErrNo, mysqli_error($db)));

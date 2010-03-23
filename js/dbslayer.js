@@ -1,5 +1,5 @@
 dbSlayer = {
-	baseUrl: 'passthru.php?',
+	baseUrl: window.sqlHammerBaseUrl + 'passthru.php',
 	
 	query: function(sqlQuery, hashParams, successCallback, errorCallback) {
 		var sendHashParams = {};
@@ -22,10 +22,9 @@ dbSlayer = {
 			hashParams: hashParams
 		};
 
-		//$.getJSON(this.baseUrl + $.toJSON(params), {}, callback);
-		$.get(this.baseUrl + $.toJSON(params), {}, function(data, textStatus) {
-			var result = undefined;
-			eval('result = ' + data);
+		$.getJSON(this.baseUrl + '?sql=' + escape($.toJSON(params)) + '&callback=?', {}, function(result, textStatus) {
+			//var result = undefined;
+			//eval('result = ' + data);
 			if(result.ERROR) {
 				errorCallback(result.ERROR,  0, '');
 			} else if(result.MYSQL_ERRNO) {
