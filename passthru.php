@@ -55,7 +55,7 @@ function jsonError($iErrNo, $sError, $sServer = '') {
 
 require_once('config.inc.php');
 
-$db = new mysqli(MYSQL_SERVER, MYSQL_USER, MYSQL_PASSWD, MYSQL_DATABASE);
+$db = @new mysqli(MYSQL_SERVER, MYSQL_USER, MYSQL_PASSWD, MYSQL_DATABASE);
 
 if($iErrNo = mysqli_connect_errno()) {
 	die(jsonError($iErrNo, mysqli_connect_error()));

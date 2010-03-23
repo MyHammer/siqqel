@@ -71,11 +71,11 @@ sqlHammerEncodingBackend = \'php\';
 			}
 		}
 
-		return preg_replace('/"/', '\'', json_encode(array('sqlQuery' => $encryptedQuery, 'requiredHashParams' => $hashParams)));
+		return json_encode(array('sqlQuery' => $encryptedQuery, 'requiredHashParams' => $hashParams));
 	}
 
 	static function encryptHtmlAttribute($a) {
-		return $a[1] . self::encryptSqlQuery($a[2]) . $a[3];
+		return $a[1] . htmlspecialchars(self::encryptSqlQuery($a[2])) . $a[3];
 	}
 
 	static function encryptJavaScriptCall($a) {
