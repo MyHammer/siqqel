@@ -61,6 +61,8 @@ if($iErrNo = mysqli_connect_errno()) {
 	die(jsonError($iErrNo, mysqli_connect_error()));
 }
 
+$db->set_charset('utf8');
+
 if($oMysqlResult = $db->query($sqlQuery)) {
 	if($iErrNo = mysqli_errno($db)) {
 		die(jsonError($iErrNo, mysqli_error($db)));
@@ -80,7 +82,6 @@ if($oMysqlResult = $db->query($sqlQuery)) {
 	while($aRow = $oMysqlResult->fetch_row()) {
 		$oResult->ROWS[] = $aRow;
 	}
-
 	echo jsonp_encode(array('RESULT' => $oResult));
 } else {
 	if($iErrNo = mysqli_errno($db)) {
