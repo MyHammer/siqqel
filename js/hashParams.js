@@ -5,7 +5,7 @@ hashParams = {
 		var params = this;
 		$.each(res, function() {
 			var r = this.match(/([a-zA-Z0-9_]+):([a-zA-Z0-9_%]*)/);
-			params[r[1]] = r[2];
+			params[r[1]] = unescape(r[2]);
 		});
 
 		$('title').text($('title').text().replace(/\s*\(.*/, '') + ' (' + hashString + ')');
