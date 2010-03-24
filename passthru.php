@@ -16,7 +16,7 @@ function jsonp_encode($data) {
 
 $sQueryString = $_GET['sql'];
 
-$sqlQuery = sqlHammerLib::buildSqlQuery(urldecode($sQueryString));
+$sqlQuery = sqlHammerLib::buildSqlQuery($sQueryString);
 
 function getFieldTypeName($iFieldType) {
 	if($iFieldType == MYSQLI_TYPE_DECIMAL) return 'MYSQLI_TYPE_DECIMAL';

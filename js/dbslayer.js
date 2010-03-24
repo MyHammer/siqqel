@@ -22,7 +22,7 @@ dbSlayer = {
 			hashParams: hashParams
 		};
 
-		$.getJSON(this.baseUrl + '?sql=' + escape($.toJSON(params)) + '&callback=?', {}, function(result, textStatus) {
+		$.getJSON(this.baseUrl + '?callback=?', {'sql': $.toJSON(params)}, function(result, textStatus) {
 			//var result = undefined;
 			//eval('result = ' + data);
 			if(result.ERROR) {
