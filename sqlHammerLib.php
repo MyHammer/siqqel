@@ -38,7 +38,8 @@ class sqlHammerLib {
 
         $config->cssFiles = self::$cssFiles;
         $config->javaScriptFiles = self::$javaScriptFiles;
-        $config->baseUrl = 'http://' . $_SERVER['HTTP_HOST'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['REQUEST_URI']) .'/';
+		$baseUrlSchema = (isset($_SERVER['HTTP_SSL_ENGINE']) && $_SERVER['HTTP_SSL_ENGINE'] == 'on') ? 'https' : 'http';
+        $config->baseUrl = $baseUrlSchema . '://' . $_SERVER['HTTP_HOST'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['REQUEST_URI']) .'/';
 
         return $config;
     }
