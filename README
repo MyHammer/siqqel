@@ -1,5 +1,8 @@
-sqlHammer is an WebTool that creates simple AJAX Calls from your SQL-Queries. You simply put an sql-SQL into the "sql" Attribute of a table abnd it will be execute on next load.
-When you hover your mouse over an table, you will see an reload button.
+sqlHammer is a simple and lightweight framework which allows you to execute SQL queries directly from your browser (by transforming them into AJAX calls to a backend script), and let's you you display the results of your queries within the structure of the calling HTML document.
+
+To issue a query and have its results displayed in a table of your HTML document, you simply put an SQL statement into the "sql" attribute of a table and it will be executed when you open the HTML document in your browser: <table sql="SELECT name FROM user"></table>
+
+Your browser will wrap the SQL statement into an AJAX call, this call will be issued to a backend script on your server, which in turn issues the statement against your database server, and returns the result set back to your browser. Your browser will display the result set in the according table. If you hover your mouse over the table, a "reload" icon will be displayed, allowing you to re-issue the SQL statement without the need to reload the whole page.
 
 To see it in action do the following:
 
@@ -18,7 +21,7 @@ To prevent raw SQL queries from floating over HTTP you may plug in your own SQL-
 
 Events:
 
-when loaded, each table, row and cell send and loaded event, so you can easly Manipulate everything for yopur purpose
+when loaded, each table, row and cell send a "loaded" event, so you can easly manipulate everything for your purpose
 $('td.userId').live('loaded', function(userId) {
 	// do something useful.
 });
