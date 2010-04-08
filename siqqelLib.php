@@ -8,14 +8,14 @@
  */
 
 
-class sqlHammerLib {
+class siqqelLib {
     static $javaScriptFiles = array(
         'js/jquery-1.4.2-min.js',
         'js/json.js',
         'js/dbslayer.js',
         'js/hashParams.js',
         'js/variableInputPanel.js',
-        'js/sqlHammerLib.js'
+        'js/siqqelLib.js'
     );
     static $cssFiles = array(
         'css/style.css'
@@ -56,7 +56,7 @@ class sqlHammerLib {
         }
 
 		$html .= '<script>
-sqlHammerEncodingBackend = \'php\';
+siqqelEncodingBackend = \'php\';
 		</script>
 ';
 
@@ -84,8 +84,8 @@ sqlHammerEncodingBackend = \'php\';
 	}
 
 	static function encryptHtml($htmlCode) {
-		$htmlCode = preg_replace_callback('/(<table[^>]+sql=")([^"]+)(")/', "sqlHammerLib::encryptHtmlAttribute", $htmlCode);
-		$htmlCode = preg_replace_callback('/(sqlHammer\\.encryptQuery\()\'([^\']+)\'(\))/', 'sqlHammerLib::encryptJavaScriptCall', $htmlCode);
+		$htmlCode = preg_replace_callback('/(<table[^>]+sql=")([^"]+)(")/', "siqqelLib::encryptHtmlAttribute", $htmlCode);
+		$htmlCode = preg_replace_callback('/(siqqel\\.encryptQuery\()\'([^\']+)\'(\))/', 'siqqelLib::encryptJavaScriptCall', $htmlCode);
 
 		return $htmlCode;
 

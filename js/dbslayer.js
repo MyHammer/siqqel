@@ -1,5 +1,5 @@
 dbSlayer = {
-	baseUrl: (window.sqlHammerBaseUrl ? window.sqlHammerBaseUrl : '') + 'passthru.php',
+	baseUrl: (window.siqqelBaseUrl ? window.siqqelBaseUrl : '') + 'passthru.php',
 	
 	query: function(sqlQuery, hashParams, successCallback, errorCallback) {
 		var sendHashParams = {};

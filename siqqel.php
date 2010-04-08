@@ -7,18 +7,18 @@
  * To change this template use File | Settings | File Templates.
  */
 
-require_once('sqlHammerLib.php');
+require_once('siqqelLib.php');
 
-echo sqlHammerLib::htmlHeaders();
+echo siqqelLib::htmlHeaders();
 
 ob_start();
 
-function sqlHammerShutdown() {
+function siqqelShutdown() {
 	$htmlCode = ob_get_contents();
 	ob_end_clean();
 
-	echo sqlHammerLib::encryptHtml($htmlCode);
+	echo siqqelLib::encryptHtml($htmlCode);
 
 }
 
-register_shutdown_function('sqlHammerShutdown');
+register_shutdown_function('siqqelShutdown');

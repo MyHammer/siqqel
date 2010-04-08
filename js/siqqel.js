@@ -1,4 +1,4 @@
-sqlHammer = {
+siqqel = {
 	encryptQuery: function(sqlQuery) {
 		var sqlObject = {
 			'sqlQuery': sqlQuery
@@ -89,12 +89,12 @@ sqlHammer = {
 			$this.trigger('tableLoaded').removeClass('loading');
 
 			var reloadLink = $('<a>').addClass('reload').text('Reload').click(function() {
-				sqlHammer.executeQuery($this, sqlQuery, hashParams);
+				siqqel.executeQuery($this, sqlQuery, hashParams);
 			});
 			$this.find('tr:first-child th:first-child').append(reloadLink);
 
 		}, function(error, errorNum, server) {
-			sqlHammer.displayError($this, 'MySQL Error: ' + error + ' (' + errorNum + ')');
+			siqqel.displayError($this, 'MySQL Error: ' + error + ' (' + errorNum + ')');
 		});
 	},
 
@@ -108,10 +108,10 @@ function initTables() {
 
 	$('table[sql]').each(function() {
 		var $this = $(this);
-		if(sqlHammerEncodingBackend == 'php') {
+		if(siqqelEncodingBackend == 'php') {
 			var sqlQuery = eval('(' + $this.attr('sql') +')');
 		} else {
-			var sqlQuery = sqlHammer.encryptQuery($this.attr('sql'));
+			var sqlQuery = siqqel.encryptQuery($this.attr('sql'));
 		}
 
 		$.each(sqlQuery.requiredHashParams, function() {
@@ -119,7 +119,7 @@ function initTables() {
 		});
 
 		$this.html('<tr><td>loading</td></tr>');
-		sqlHammer.executeQuery($this, sqlQuery, hashParams);
+		siqqel.executeQuery($this, sqlQuery, hashParams);
 	});
 
 	return requiredHashParams;

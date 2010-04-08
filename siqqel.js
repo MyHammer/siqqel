@@ -1,4 +1,4 @@
-sqlHammerEncodingBackend = 'js';
+siqqelEncodingBackend = 'js';
 
 ({
 	config: '!!configHere!!',
@@ -19,7 +19,7 @@ sqlHammerEncodingBackend = 'js';
 	},
 
 	init: function() {
-		window.sqlHammerBaseUrl = this.config.baseUrl;
+		window.siqqelBaseUrl = this.config.baseUrl;
 		for(var i = 0; i < this.config.javaScriptFiles.length; i++) {
 			this.loadJs(this.config.baseUrl + this.config.javaScriptFiles[i]);
 		}

@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-require_once('sqlHammerLib.php');
+require_once('siqqelLib.php');
 
 
 function jsonp_encode($data) {
@@ -16,7 +16,7 @@ function jsonp_encode($data) {
 
 $sQueryString = $_GET['sql'];
 
-$sqlQuery = sqlHammerLib::buildSqlQuery($sQueryString);
+$sqlQuery = siqqelLib::buildSqlQuery($sQueryString);
 
 function getFieldTypeName($iFieldType) {
 	if($iFieldType == MYSQLI_TYPE_DECIMAL) return 'MYSQLI_TYPE_DECIMAL';

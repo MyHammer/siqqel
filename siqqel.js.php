@@ -8,11 +8,11 @@
 
 header('Content-Type: application/javascript');
 
-require_once('sqlHammerLib.php');
+require_once('siqqelLib.php');
 
-$config = sqlHammerLib::jsConfig();
+$config = siqqelLib::jsConfig();
 
-$data = file_get_contents('sqlHammer.js');
+$data = file_get_contents('siqqel.js');
 
 echo preg_replace("/'!!configHere!!'/", json_encode($config), $data);
 
