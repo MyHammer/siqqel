@@ -1,4 +1,4 @@
-siqqel is a simple and lightweight framework which allows you to execute SQL queries directly from your browser (by transforming them into AJAX calls to a backend script), and let's you you display the results of your queries within the structure of the calling HTML document.
+siqqel is a simple and lightweight framework which allows you to execute SQL queries directly from your browser (by transforming them into AJAX calls to a backend script), and let's you you display the results of your queries within the structure of the calling HTML document. siqqel was created by Max Winde (http://github.com/343max).
 
 To issue a query and have its results displayed in a table of your HTML document, you simply put an SQL statement into the "sql" attribute of a table and it will be executed when you open the HTML document in your browser: <table sql="SELECT name FROM user"></table>
 
