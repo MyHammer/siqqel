@@ -32,7 +32,7 @@ class siqqelLib {
 
 		$sqlQuery = $oQuery->sqlQuery;
 
-		foreach($oQuery->requiredHashParams as $name => $value) {
+		foreach ($oQuery->requiredHashParams as $name => $value) {
 			$sqlQuery = preg_replace('/#' . $name . '/', mysql_escape_string($value), $sqlQuery);
 		}
 
