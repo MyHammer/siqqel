@@ -1,6 +1,6 @@
 <?php
 
-// rename to "conifg.inc.php" and fill in the necessary values:
+// rename to "config.inc.php" and fill in the necessary values:
 
 define('MYSQL_SERVER', '127.0.0.1');
 define('MYSQL_USER', 'root');

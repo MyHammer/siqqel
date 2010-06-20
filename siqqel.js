@@ -20,11 +20,11 @@ siqqelEncodingBackend = 'js';
 
 	init: function() {
 		window.siqqelBaseUrl = this.config.baseUrl;
-		for(var i = 0; i < this.config.javaScriptFiles.length; i++) {
+		for (var i = 0; i < this.config.javaScriptFiles.length; i++) {
 			this.loadJs(this.config.baseUrl + this.config.javaScriptFiles[i]);
 		}
 
-		for(var i = 0; i < this.config.cssFiles.length; i++) {
+		for (var i = 0; i < this.config.cssFiles.length; i++) {
 			this.loadCss(this.config.baseUrl + this.config.cssFiles[i]);
 		}
 

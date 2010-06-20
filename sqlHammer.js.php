@@ -5,4 +5,3 @@
  */
 
 require_once('siqqel.js.php');
-
