@@ -15,6 +15,18 @@ class siqqelLib {
 		'css/style.css'
 	);
 
+	public static function encryptSqlQuery($sqlQuery) {
+		$encryptedQuery = $sqlQuery;
+		$hashParams = array();
+		if (preg_match_all('/#([a-zA-Z0-9_]+)/', $sqlQuery, $matches, PREG_SET_ORDER)) {
+			foreach($matches as $match) {
+				$hashParams[] = $match[1];
+			}
+		}
+
+		return json_encode(array('sqlQuery' => $encryptedQuery, 'requiredHashParams' => $hashParams));
+	}
+
 	public static function buildSqlQuery($encryptedQuery) {
 		$oQuery = json_decode($encryptedQuery);
 
@@ -52,18 +64,6 @@ class siqqelLib {
 		$html .= '<script>siqqelEncodingBackend = \'php\';</script>';
 
 		return $html;
-	}
-
-	public static function encryptSqlQuery($sqlQuery) {
-		$encryptedQuery = $sqlQuery;
-		$hashParams = array();
-		if (preg_match_all('/#([a-zA-Z0-9_]+)/', $sqlQuery, $matches, PREG_SET_ORDER)) {
-			foreach($matches as $match) {
-				$hashParams[] = $match[1];
-			}
-		}
-
-		return json_encode(array('sqlQuery' => $encryptedQuery, 'requiredHashParams' => $hashParams));
 	}
 
 	public static function encryptHtmlAttribute($a) {
