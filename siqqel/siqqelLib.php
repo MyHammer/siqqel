@@ -39,13 +39,13 @@ class siqqelLib {
 		return $sqlQuery;
 	}
 
-	public static function jsConfig() {
+	public static function jsConfig($serverParameters) {
 		$config = (object)null;
 
 		$config->cssFiles = self::$cssFiles;
 		$config->javaScriptFiles = self::$javaScriptFiles;
-		$baseUrlSchema = (isset($_SERVER['HTTP_SSL_ENGINE']) && $_SERVER['HTTP_SSL_ENGINE'] == 'on') ? 'https' : 'http';
-		$config->baseUrl = $baseUrlSchema . '://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']) .'/';
+		$baseUrlSchema = (isset($serverParameters['HTTP_SSL_ENGINE']) && $serverParameters['HTTP_SSL_ENGINE'] == 'on') ? 'https' : 'http';
+		$config->baseUrl = $baseUrlSchema . '://' . $serverParameters['HTTP_HOST'] . dirname($serverParameters['REQUEST_URI']) .'/';
 
 		return $config;
 	}
