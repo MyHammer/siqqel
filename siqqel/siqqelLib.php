@@ -24,16 +24,18 @@ class siqqelLib {
 			}
 		}
 
-		return json_encode(array('sqlQuery' => $encryptedQuery, 'requiredHashParams' => $hashParams));
+		return json_encode(array('SQL' => $encryptedQuery, 'hashParams' => $hashParams));
 	}
 
 	public static function buildSqlQuery($encryptedQuery) {
 		$oQuery = json_decode($encryptedQuery);
+		
+		$sqlQuery = $oQuery->SQL;
 
-		$sqlQuery = $oQuery->sqlQuery;
-
-		foreach ($oQuery->requiredHashParams as $name => $value) {
-			$sqlQuery = preg_replace('/#' . $name . '/', mysql_escape_string($value), $sqlQuery);
+		if (is_array($oQuery->hashParams)) {
+			foreach ($oQuery->hashParams as $name => $value) {
+				$sqlQuery = preg_replace('/#' . $name . '/', mysql_escape_string($value), $sqlQuery);
+			}
 		}
 
 		return $sqlQuery;

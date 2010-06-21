@@ -1,14 +1,11 @@
 <?php
 
 require_once('siqqelLib.php');
+require_once('config.inc.php');
 
 function jsonp_encode($data) {
 	return $_GET['callback'] . '(' . json_encode($data) . ');';
 }
-
-$sQueryString = $_GET['sql'];
-
-$sqlQuery = siqqelLib::buildSqlQuery($sQueryString);
 
 function getFieldTypeName($iFieldType) {
 	if ($iFieldType == MYSQLI_TYPE_DECIMAL) return 'MYSQLI_TYPE_DECIMAL';
@@ -45,8 +42,6 @@ function jsonError($iErrNo, $sError, $sServer = '') {
 	return jsonp_encode(array('MYSQL_ERROR' => $sError, 'MYSQL_ERRNO' => $iErrNo, 'SERVER' => $sServer));
 }
 
-require_once('config.inc.php');
-
 $db = @new mysqli(MYSQL_SERVER, MYSQL_USER, MYSQL_PASSWD, MYSQL_DATABASE);
 
 if ($iErrNo = mysqli_connect_errno()) {
@@ -54,6 +49,10 @@ if ($iErrNo = mysqli_connect_errno()) {
 }
 
 $db->set_charset('utf8');
+
+$sQueryString = $_GET['sql'];
+if (ini_get('magic_quotes_gpc') == '1') $sQueryString = stripslashes($sQueryString);
+$sqlQuery = siqqelLib::buildSqlQuery($sQueryString);
 
 if ($oMysqlResult = $db->query($sqlQuery)) {
 	if ($iErrNo = mysqli_errno($db)) {
