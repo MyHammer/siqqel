@@ -56,7 +56,7 @@ $sqlQuery = siqqelLib::buildSqlQuery($sQueryString);
 
 if ($oMysqlResult = $db->query($sqlQuery)) {
 	if ($iErrNo = mysqli_errno($db)) {
-		die (jsonError($iErrNo, mysqli_error($db)));
+		die (jsonError($iErrNo, mysqli_error($db).' Query: '.$sqlQuery));
 	}
 
 	$oResult = (object)null;
@@ -75,6 +75,6 @@ if ($oMysqlResult = $db->query($sqlQuery)) {
 	echo jsonp_encode(array('RESULT' => $oResult));
 } else {
 	if ($iErrNo = mysqli_errno($db)) {
-		die(jsonError($iErrNo, mysqli_error($db)));
+		die (jsonError($iErrNo, mysqli_error($db).'. Query: '.$sqlQuery));
 	}
 }

@@ -1,12 +1,42 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Offline Sample</title>
-	<script type="text/javascript" src="siqqel.js.php"></script>
-</head>
-<body>
+	<head>
+		<title>siqqel Example File</title>
+	
+		<!-- Change the src attribute to reflect the url of your siqqel installation -->
+		<script type="text/javascript" src="http://localhost:8888/siqqel/siqqel.js.php"></script>
+	
+	</head>
+	<body>
+	
+		<!-- Very basic query -->
+		Resultset of query <em>SELECT 'Hello World' AS value</em>:
 
-<table sql="SELECT #firstParam = #secondParam"></table>
+		<table sql="SELECT 'Hello World' AS value"></table>
+	
 
-</body>
+		<br />
+		<!-- Example of parameter usage -->
+		Resultset of query <em>SELECT #myParam AS myParamValue</em>,
+		where <em>#myParam</em> is replaced with your input:
+
+		<table sql="SELECT '#myParam' AS myParamValue"></table>
+	
+
+		<br />	
+		<!-- Example of simple bar graph usage -->
+		Resultset showing the population of some european cities
+		with a bar graph representing the size of field <em>Population</em>:
+
+		<table sql="SELECT 'Amsterdam' AS City, '2,497,000' AS Population UNION
+					SELECT 'Athens' AS City, '3,761,000' AS Population UNION
+					SELECT 'Barcelona' AS City, '4,082,000' AS Population UNION
+					SELECT 'Berlin' AS City, '4,016,000' AS Population UNION
+					SELECT 'Budapest' AS City, '2,523,000' AS Population UNION
+					SELECT 'London' AS City, '13,709,000' AS Population UNION
+					SELECT 'Paris' AS City, '11,175,000' AS Population"
+					
+			 graph="Population"></table>
+	
+	</body>
 </html>
