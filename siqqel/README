@@ -4,6 +4,39 @@ To issue a query and have its results displayed in a table of your HTML document
 
 Your browser will wrap the SQL statement into an AJAX call, this call will be issued to a backend script on your server, which in turn issues the statement against your database server, and returns the result set back to your browser. Your browser will display the result set in the according table. If you hover your mouse over the table, a "reload" icon will be displayed, allowing you to re-issue the SQL statement without the need to reload the whole page.
 
+
+
+ Your browser, having
+ loaded a local ("file:///...")
+ html document which references              The siqqel PHP library
+ the siqqel js file on your server           on your web server,
+ and containing an HTML table element        receiving your query and
+ with an "sql" attribute featuring a         creating a MySQL call
+ SQL statement                               from it
+
+ |=======================|                   |-----------------------|                  |----------|
+ |_______________________| - JSON Request -> |                       | -- SQL Query --> |          |
+ |                       |                   |                       |                  |          |
+ | <table sql="          |                   | $result=              |                  | MySQL DB |
+ | SELECT name FROM user |                   | mysqli_query(         |                  |          |
+ | "/>                   |                   | SELECT name FROM user)|                  |          |
+ |_______________________|                   |_______________________|                  |__________|
+                                                                                             |
+                                                                                             |
+ |=======================|                   |-----------------------|                       |
+ |_______________________|                   |                       |                       |
+ | name                  |                   |                       |                       |
+ | ---------             |                   |                       |                       |
+ | Han Solo              |                   | json_encode($result); |                       |
+ | Chewbacca             | <- JSON Result -- |                       | <-- SQL Result -------/               
+ |_______________________|                   |_______________________|                 
+ 
+ Your browser, after decoding                The siqqel PHP library,
+ the JSON response an rendering              transforming the MySQL
+ the result data into the table              result into a JSON response
+ 
+ 
+
 To see it in action do the following:
 
 * Create your config.inc.php from config.inc.sample.php
