@@ -6,9 +6,20 @@ Your browser will wrap the SQL statement into an AJAX call, this call will be is
 
 To see it in action do the following:
 
-* create your config.inc.php from config.sample.php
-* call sample.php from the server
-* copy sample.php and create your own queries.
+* Create your config.inc.php from config.inc.sample.php
+
+* Put the whole siqqel folder onto a PHP enabled webserver
+  (e.g. "http://myserver.com/siqqel/")
+
+* Copy example.html wherever you like (e.g. you desktop)
+
+* Replace the example url to siqqel.js.php with the url where you put the siqqel folder
+  (e.g. src="http://myserver.com/siqqel/siqqel.js.php")
+
+* Put your own queries into example.html
+
+* Open your local version of example.html with your favourite browser
+
 
 You may also pass parameters form the URL to your sql-Query, by creating an "hashParam".
 
