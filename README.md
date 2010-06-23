@@ -132,7 +132,7 @@ for your purpose:
 		// do something useful.
 	});
 
-The events are:
+Possible events are:
 * `loaded` for a cell
 * `rowLoaded` for a row
 * `tableLoaded` for the whole table.
@@ -140,7 +140,7 @@ The events are:
 Every cell gets two css classes: the name of the column and the type (eg: `userId TYPE_LONG`) so you
 can format it using css and manipulate it via jQuery.
 
-Every row gets a class "row" and a class "row" + rowNumber so $('#myQuery tr.row1') will match the
+Every row gets a class "row" and a class "row" + rowNumber so `$('#myQuery tr.row1')` will match the
 first row of your resultset.
 
 ## Simple bargraphs
@@ -149,6 +149,6 @@ You can put an simple bargraph into the background of a table by adding a `graph
 your table.
 The `graph` attribute should contain the name of the column you want to use for the graph:
 
-	<table sql="SELECT contributerName, COUNT(*) AS numberOfCommits FROM commits GROUP BY contributorName"
-	     graph="numberOfCommits">
+	<table sql="SELECT contributerName, COUNT(*) AS number FROM commits GROUP BY contributorName"
+	     graph="number">
 	</table>
