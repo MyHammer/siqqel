@@ -21,9 +21,9 @@ the result set back to your browser. Your browser will display the result set in
 table. If you hover your mouse over the table, a "reload" icon will be displayed, allowing you to
 re-issue the SQL statement without the need to reload the whole page.
 
-This is how it looks:
+This is how the result looks:
 
-![Example screenshot](./gfx/example_screenshot.png)
+![Example screenshot](../../preparing0.3/gfx/example_screenshot.png)
 
 # Why would I want to use siqqel?
 
