@@ -23,7 +23,7 @@ re-issue the SQL statement without the need to reload the whole page.
 
 This is how the result looks:
 
-![Example screenshot](../../preparing0.3/gfx/example_screenshot.png)
+![Example screenshot](../raw/preparing0.3/gfx/example_screenshot.png)
 
 # Why would I want to use siqqel?
 
