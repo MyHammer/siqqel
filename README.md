@@ -1,7 +1,7 @@
 # What is siqqel?
 
 siqqel is a simple and lightweight framework which allows you to execute MySQL queries directly from
-your browser (by transforming them into AJAX calls to a backend script), displaying the results of
+your browser (by transforming them into JSON calls to a backend script), displaying the results of
 your queries within the structure of the calling HTML document.
 
 siqqel was created by Max Winde (http://github.com/343max).
@@ -15,7 +15,7 @@ document in your browser:
 
 	<table sql="SELECT name FROM user"></table>
 
-Your browser will wrap the SQL statement into an AJAX call, this call will be issued to a backend
+Your browser will wrap the SQL statement into an JSON call, this call will be issued to a backend
 script on your server, which in turn issues the statement against your database server, and returns
 the result set back to your browser. Your browser will display the result set in the according
 table. If you hover your mouse over the table, a "reload" icon will be displayed, allowing you to
@@ -47,7 +47,7 @@ result sets of these queries right in your HTML document, when you open it in a 
 This way, it's extremly simple to create a dashboard-like overview over the results of several
 queries on one page.
 
-So, why did we create this strange setup with local HTML files, AJAX and so on?
+So, why did we create this strange setup with local HTML files, JSON and so on?
 
 Well, this is where the real strength of siqqel lies: Up until now, if you wanted to enable your
 non-developers in your team to create ad hoc reports from your database, you either gave them access
@@ -133,21 +133,22 @@ for your purpose:
 	});
 
 The events are:
-`loaded` for a cell
-`rowLoaded` for a row
-`tableLoaded` for the whole table.
+* `loaded` for a cell
+* `rowLoaded` for a row
+* `tableLoaded` for the whole table.
 
 Every cell gets two css classes: the name of the column and the type (eg: `userId TYPE_LONG`) so you
-can format it using css and manipulate it via jQuery
+can format it using css and manipulate it via jQuery.
 
 Every row gets a class "row" and a class "row" + rowNumber so $('#myQuery tr.row1') will match the
-1 row of your resultset.
+first row of your resultset.
 
-Simple bargraphs:
-You can put an simple bargraph into the background of an table by adding an "graph" attribute to
+## Simple bargraphs
+
+You can put an simple bargraph into the background of a table by adding a `graph` attribute to
 your table.
-The "graph" attribute should contain the name of the column you want to the graph for e.g.:
+The `graph` attribute should contain the name of the column you want to use for the graph:
 
-	<table sql="SELECT contributerName, COUNT(*) AS numberOfCommits FROM commits
-	            GROUP BY contributorName"
-	     graph="numberOfCommits"></table>
+	<table sql="SELECT contributerName, COUNT(*) AS numberOfCommits FROM commits GROUP BY contributorName"
+	     graph="numberOfCommits">
+	</table>
