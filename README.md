@@ -93,7 +93,7 @@ their local drive. Everythings happens within the browser! Here's how:
 
 # Getting started
 
-* Create your config.inc.php from config.inc.sample.php
+* Create your siqqel/config.inc.php from siqqel/config.inc.sample.php
 
 * Put the whole siqqel subfolder onto a PHP enabled webserver
   (e.g. `http://myserver.com/siqqel/`)
