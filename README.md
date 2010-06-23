@@ -25,12 +25,12 @@ re-issue the SQL statement without the need to reload the whole page.
 # Why would I want to use siqqel?
 
 Glad you asked. The purpose of using siqqel probably isn't obvious. If you want to query your
-MySQL database, there are tons of tools available: Some that are more "low level" and allow you to issue
-a single query and to display the result set of this query, like the mysql command line tool or
-phpMyAdmin. And there are a lot of high level reporting tools or full flegded data warehouse
+MySQL database, there are tons of tools available: Some that are more "low level" and allow you to
+issue a single query and to display the result set of this query, like the mysql command line tool
+or phpMyAdmin. And there are a lot of high level reporting tools or full flegded data warehouse
 solutions.
 
-siqqel fills the gap between these two extrems. Sometimes you need to create a small report based
+siqqel fills the gap between these two extremes. Sometimes you need to create a small report based
 on a hand full of tables, which is awkward to do in phpMyAdmin because you need to have several tabs
 open in parallel, and if you want to see your "report" on the following day again, you better saved
 all those SQL queries in a textfile. On the other hand, this report really is more of an ad hoc
@@ -38,18 +38,18 @@ nature, probably you just want to see a first trend for a couple of days, after 
 feature in your product. The overhead to create a report in your enterprise data warehouse simply
 isn't justified.
 
-This is where siqqel fits just perfect. Once you installed the backend script on a webserver which
+This is where siqqel fits just perfectly. Once you installed the backend script on a webserver which
 has access to your database, it's very simple to create an ad hoc report.
 All you need to do is to create an HTML file (which can reside on your local harddrive and doesn't
-need to be saved on a webserver), put your queries into `<table>` elements, this will display the
-result sets of these queries right in your HTML document, when you open it in a browser.
+need to be saved on a webserver) and put your queries into `<table>` elements. This will display the
+result sets of these queries right in your HTML document when you open it in a browser.
 
-This way, it's extremly simple to create a dashboard-like overview over the results of several
-queries on one page.
+This way, it's very simple to create a dashboard-like overview over the results of several queries
+on one page.
 
 So, why did we create this strange setup with local HTML files, JSON and so on?
 
-Well, this is where the real strength of siqqel lies: Up until now, if you wanted to enable your
+Well, this is where the real strength of siqqel lies: Up until now, if you wanted to enable the
 non-developers in your team to create ad hoc reports from your database, you either gave them access
 to a phpMyAdmin installation or tools like Toad (which aren't suited for more complex reports, see
 above), or you teached them some basic PHP knowledge, and gave them FTP access to a local webserver
@@ -58,8 +58,8 @@ where they could upload their hacked-together scripts and open them in their bro
 You have never been really happy with this solution, have you?
 
 With siqqel, you need to install a PHP script on a web server exactly once. If this setup has been
-done, all your teammates need to query your database and display the results is an HTML file. On
-their local drive. Everythings happens within the browser! Here's how:
+done, all that your teammates need to query your database and display the results is an HTML file.
+On their local drive. Everythings happens within the browser! Here's how:
 
 	Your browser, having
 	loaded a local ("file:///...")
