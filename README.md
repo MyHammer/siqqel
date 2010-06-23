@@ -95,8 +95,8 @@ their local drive. Everythings happens within the browser! Here's how:
 
 * Create your config.inc.php from config.inc.sample.php
 
-* Put the whole siqqel folder onto a PHP enabled webserver
-  (e.g. "http://myserver.com/siqqel/")
+* Put the whole siqqel subfolder onto a PHP enabled webserver
+  (e.g. `http://myserver.com/siqqel/`)
 
 * Copy example.html wherever you like (e.g. you desktop)
 
