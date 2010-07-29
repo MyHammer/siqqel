@@ -16,7 +16,7 @@ siqqel = {
 		return sqlObject;
 	},
 	
-	executeQuery: function($this, sqlQuery, hashParams) {
+	executeQuery: function($this, sqlQuery, hashParams, serverId) {
 		var graph = $this.attr('graph');
 
 		var graphValues = [];
@@ -24,7 +24,7 @@ siqqel = {
 
 		$this.addClass('loading');
 
-		dbSlayer.query(sqlQuery, hashParams, function(rows, header, types) {
+		dbSlayer.query(sqlQuery, hashParams, serverId, function(rows, header, types) {
 			var trHead = $('<tr>');
 
 			$.each(header, function() {
@@ -89,7 +89,7 @@ siqqel = {
 			$this.trigger('tableLoaded').removeClass('loading');
 
 			var reloadLink = $('<a>').addClass('reload').text('Reload').click(function() {
-				siqqel.executeQuery($this, sqlQuery, hashParams);
+				siqqel.executeQuery($this, sqlQuery, hashParams, serverId);
 			});
 			$this.find('tr:first-child th:first-child').append(reloadLink);
 
@@ -118,8 +118,10 @@ function initTables() {
 			requiredHashParams[this] = true;
 		});
 
+		var serverId = $this.attr('server');
+
 		$this.html('<tr><td>loading</td></tr>');
-		siqqel.executeQuery($this, sqlQuery, hashParams);
+		siqqel.executeQuery($this, sqlQuery, hashParams, serverId);
 	});
 
 	return requiredHashParams;

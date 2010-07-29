@@ -42,7 +42,10 @@ function jsonError($iErrNo, $sError, $sServer = '') {
 	return jsonp_encode(array('MYSQL_ERROR' => $sError, 'MYSQL_ERRNO' => $iErrNo, 'SERVER' => $sServer));
 }
 
-$db = @new mysqli(MYSQL_SERVER, MYSQL_USER, MYSQL_PASSWD, MYSQL_DATABASE);
+$serverId = array_key_exists(@$_GET['server'], $servers) ? $_GET['server'] : $defaultServer;
+$mysqlServer = $servers[$serverId];
+
+$db = @new mysqli($mysqlServer['server'], $mysqlServer['user'], $mysqlServer['passwd'], $mysqlServer['database']);
 
 if ($iErrNo = mysqli_connect_errno()) {
 	die (jsonError($iErrNo, mysqli_connect_error()));

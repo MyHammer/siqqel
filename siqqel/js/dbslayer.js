@@ -1,7 +1,7 @@
 dbSlayer = {
 	baseUrl: (window.siqqelBaseUrl ? window.siqqelBaseUrl : '') + 'passthru.php',
 	
-	query: function(sqlQuery, hashParams, successCallback, errorCallback) {
+	query: function(sqlQuery, hashParams, serverId, successCallback, errorCallback) {
 		var sendHashParams = {};
 
 		var missingHashParameters = false;
@@ -22,7 +22,7 @@ dbSlayer = {
 			hashParams: hashParams
 		};
 
-		$.getJSON(this.baseUrl + '?callback=?', {'sql': $.toJSON(params)}, function(result, textStatus) {
+		$.getJSON(this.baseUrl + '?callback=?', {'server': serverId, 'sql': $.toJSON(params)}, function(result, textStatus) {
 			//var result = undefined;
 			//eval('result = ' + data);
 			if(result.ERROR) {

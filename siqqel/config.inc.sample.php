@@ -2,7 +2,24 @@
 
 // rename to "config.inc.php" and fill in the necessary values:
 
-define('MYSQL_SERVER', '127.0.0.1');
-define('MYSQL_USER', 'root');
-define('MYSQL_PASSWD', '');
-define('MYSQL_DATABASE', 'test');
+$servers = array(
+
+	'local' => array(
+		'server' => "127.0.0.1",
+		'user' => "root",
+		'passwd' => "",
+		'database' => "test"
+	)
+
+	/*
+	,'secondServer' => array(
+	'server' => 'example.com',
+	'user' => 'someuser',
+	'passwd' => '',
+	'database' => 'somedatabase'
+	)
+	*/
+
+);
+
+$defaultServer = 'local';
