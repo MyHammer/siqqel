@@ -1,9 +1,6 @@
 siqqel = {
-	encryptQuery: function(sqlQuery) {
-		var sqlObject = {
-			'sqlQuery': sqlQuery
-		};
 
+	getRequiredHashParams: function(sqlQuery) {
 		var requiredHashParams = [];
 
 		sqlQuery.replace(/#([a-zA-Z0-9_]+)/g, function(m, param) {
@@ -11,9 +8,57 @@ siqqel = {
 			return m;
 		});
 
-		sqlObject.requiredHashParams = requiredHashParams;
+		return requiredHashParams;
+	},
 
-		return sqlObject;
+	eachRow: function(sqlQuery, hashParams, serverId, callback, finalCallback) {
+		dbSlayer.query(sqlQuery, hashParams, serverId, function(rows, headers, types) {
+			$.each(rows, function() {
+				var row = {};
+
+				for(var i = 0; i < headers.length; i++) {
+					row[headers[i]] = this[i];
+				}
+
+				callback(row);
+			});
+
+			if(finalCallback) finalCallback();
+
+		}, function(error, errorNum, server) {
+			siqqel.displayError($this, 'MySQL Error: ' + error + ' (' + errorNum + ')');
+		});
+	},
+
+	eachRowPoll: function(sqlQuery, serverId, interval, callback, hashParams) {
+		var requiredHashParams = siqqel.getRequiredHashParams(sqlQuery);
+
+		if(requiredHashParams.length != 1) {
+			throw "sqlQuery requires exactly one #param";
+		}
+
+		var counterParam = requiredHashParams[0];
+
+		if(!hashParams) {
+			var hashParams = {};
+			hashParams[counterParam] = 0;
+		}
+
+		var self = this;
+
+		this.eachRow(sqlQuery, hashParams, serverId, function(row) {
+			if(row[counterParam] > hashParams[counterParam]) {
+				hashParams[counterParam] = row[counterParam];
+			}
+
+			callback(row);
+		}, function() {
+			//console.dir(hashParams);
+
+			window.setTimeout(function() {
+				self.eachRowPoll(sqlQuery, serverId, interval, callback, hashParams);
+			}, interval);
+		});
 	},
 	
 	executeQuery: function($this, sqlQuery, hashParams, serverId) {
@@ -108,13 +153,10 @@ function initTables() {
 
 	$('table[sql]').each(function() {
 		var $this = $(this);
-		if(siqqelEncodingBackend == 'php') {
-			var sqlQuery = eval('(' + $this.attr('sql') +')');
-		} else {
-			var sqlQuery = siqqel.encryptQuery($this.attr('sql'));
-		}
+		
+		var sqlQuery = $this.attr('sql');
 
-		$.each(sqlQuery.requiredHashParams, function() {
+		$.each(siqqel.getRequiredHashParams(sqlQuery), function() {
 			requiredHashParams[this] = true;
 		});
 
@@ -144,23 +186,11 @@ $().ready(function() {
 	});
 });
 
-function toDateTime(timestamp) {
-	if(timestamp == 'NULL') return timestamp;
-	var date = new Date();
-	date.setTime(parseInt(timestamp) * 1000);
-	return date.toString().replace(/GMT.*/, '');
-}
-
-function toDate(timestamp) {
-	if(timestamp == 'NULL') return timestamp;
-	var date = new Date();
-	date.setTime(parseInt(timestamp) * 1000);
-	return date.toString().replace(/[0-9]+:.*/, '');
-}
-
-function summarizeText($this) {
-	if($this.html().length < 200) return;
-}
+$().ready(function() {
+	$.each(siqqelReadyCallbacks, function() {
+		this();
+	});
+});
 
 $.fn.columnValues = function(columnName, callback) {
 	var values = [];
@@ -175,15 +205,3 @@ $.fn.columnValues = function(columnName, callback) {
 
 	return values;
 }
-
-$('td.timestamp, td.timestampExact').live('loaded', function(event, timestamp) {
-	$(this).text(toDateTime(timestamp));
-});
-
-$('td.timestampDay').live('loaded', function(event, timestamp) {
-	$(this).text(toDate(timestamp));
-});
-
-$('td.TYPE_BLOB').live('loaded', function(event, text) {
-	summarizeText($(this));
-});

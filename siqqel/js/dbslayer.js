@@ -6,7 +6,7 @@ dbSlayer = {
 
 		var missingHashParameters = false;
 
-		$.each(sqlQuery.requiredHashParams, function() {
+		$.each(siqqel.getRequiredHashParams(sqlQuery), function() {
 			if(typeof(hashParams[this]) == 'undefined') {
 				errorCallback('Please enter a value for #' + this, 0, '');
 				missingHashParameters = true;
@@ -18,7 +18,7 @@ dbSlayer = {
 		if(missingHashParameters) return;
 
 		var params = {
-			SQL: sqlQuery.sqlQuery,
+			SQL: sqlQuery,
 			hashParams: hashParams
 		};
 
